@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="images/banner.webp" alt="CSV 3D Explorer — interactive 3D viewer for CSV data, single HTML file, fully offline" width="100%">
+</p>
+
 # CSV 3D Explorer
 
 An interactive 3D viewer for CSV data in **a single HTML file, fully offline** (Three.js r147 embedded).
@@ -6,6 +10,7 @@ Double-click `index.html` and you're done — no server, no build step, no inter
 ```
 3d_viewer/
 ├── index.html     ← the whole application (~720 KB, self-contained)
+├── images/        ← screenshots used in this README
 └── samples/       ← ready-to-drop example CSVs
 ```
 
@@ -14,6 +19,18 @@ Double-click `index.html` and you're done — no server, no build step, no inter
 1. Open `index.html` in any modern browser (WebGL 2 required).
 2. It boots with the *Spiral galaxy* sample so there is something on screen immediately.
 3. Drop one of the files from `samples/` onto the window, or click **⬆ Open CSV…** to load your own.
+
+## The interface
+
+![The Clusters sample loaded: 6,000 points colored by category, with the Dataset panel on the left showing per-column histograms, the Controls panel on the right, and the category legend bottom-right](images/interface-clusters.webp)
+
+Three floating panels surround the scene, and all of them drag by their header and collapse with `–`:
+
+- **Dataset** (left) — file name, row/column count, the detected separator and decimal mark, plus a histogram per column with min, max, mean and σ. Badges mark which column feeds X, Y, Z and Color.
+- **Controls** (right) — loading, axis mapping, render mode, point size, the mean plane and its tint, and the view buttons.
+- **Selection** (bottom left) — the values of whatever you clicked.
+
+A legend appears bottom-right whenever a *Color* column is active.
 
 ## Loading data
 
@@ -43,8 +60,10 @@ The first three numeric columns are assigned to X·Y·Z (**Z is the vertical axi
 ## The 4th dimension: color
 
 - **Numeric column** → blue gradient with a legend showing the value range.
-- **Text column** → the 4 most frequent categories get a distinct color **and shape** (circle / diamond / square / triangle); everything else is grouped into *Other*.
+- **Text column** → the 4 most frequent categories get a distinct color **and shape** (circle / diamond / square / triangle); everything else is grouped into *Other*. This is what the *Clusters* screenshot above shows.
 - **No column** → a single flat color, which is what lets the mean plane tint take over (see below).
+
+![The Galaxy sample: 15,000 points shaded by a numeric intensity column, with the gradient legend and its value range bottom-right](images/color-numeric-galaxy.webp)
 
 ## Mean plane / flotation surface
 
@@ -53,6 +72,8 @@ Toggle it in *Mean plane* (or press **P**). It starts at the mean of the Z axis 
 - Without a *Color* column it tints the cloud: **warm above, cool below**.
 - With a *Color* column it dims what sits underneath instead, so your palette stays readable.
 - **↩ to mean** snaps it back to the average.
+
+![The Simple grid sample in mesh mode: the peak rising above the plane is tinted warm red, the flat area below it cool blue, and the surface fades to gray right at plane level](images/mean-plane-grid.webp)
 
 ### Custom high/low tint
 
@@ -66,6 +87,8 @@ The **high** and **low** color pickers in the *Mean plane* group redefine the hi
 - **adjustable transparency** (opacity slider), visible wireframe and **highlighted nodes** (the connection points);
 - hover and selection keep working on the nodes;
 - enabling it automatically turns the flotation surface on at the mean of Z.
+
+![The Terrain sample in mesh mode: a triangulated wireframe surface of peaks and valleys, warm above the mean plane and cool below, with the Dataset panel reporting 4,096 rows and 3 columns](images/mesh-terrain.webp)
 
 ## Themes
 
